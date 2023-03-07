@@ -34,25 +34,29 @@ class CommandHandler {
     }
 
     // Ignore commands without mention in groups.
-    if (msg.chat.type != 'private' && !isMentioned) return;
+    //if (msg.chat.type != 'private' && !isMentioned) return;
 
-    switch (command) {
-      case '/help':
+    var command2 = command.replace(/\/(cgpt|chatgpt|siri)[-_]?/, "/chatgpt_");
+
+    switch (command2) {
+      case '/chatgpt_help':
         await this._bot.sendMessage(
           msg.chat.id,
           'To chat with me, you can:\n' +
             '  • send messages directly (not supported in groups)\n' +
-            `  • send messages that start with ${this._opts.chatCmd}\n` +
+            `  • send messages that start with ${this._opts.chatCmd[0]}\n` +
             '  • reply to my last message\n\n' +
             'Command list:\n' +
             `(When using a command in a group, make sure to include a mention after the command, like /help@${botUsername}).\n` +
-            '  • /help Show help information.\n' +
-            '  • /reset Reset the current chat thread and start a new one.\n' +
-            '  • /reload (admin required) Refresh the ChatGPT session.'
+            '  • /cgpt_help Show help information.\n' +
+            '  • /cgpt_reset Reset the current chat thread and start a new one.\n' +
+            '  • /cgpt_reload (admin required) Refresh the ChatGPT session.\n' +
+            '(Source: https://github.com/RainEggplant/chatgpt-telegram-bot, with small modifications)'
         );
         break;
 
-      case '/reset':
+      case '/chatgpt_reset':
+      case '/chatreset':
         await this._bot.sendChatAction(msg.chat.id, 'typing');
         await this._api.resetThread();
         await this._bot.sendMessage(
@@ -62,7 +66,7 @@ class CommandHandler {
         logWithTime(`🔄 Chat thread reset by ${userInfo}.`);
         break;
 
-      case '/reload':
+      case '/chatgpt_reload':
         if (this._opts.userIds.indexOf(msg.from?.id ?? 0) == -1) {
           await this._bot.sendMessage(
             msg.chat.id,
@@ -82,7 +86,7 @@ class CommandHandler {
       default:
         await this._bot.sendMessage(
           msg.chat.id,
-          '⚠️ Unsupported command. Run /help to see the usage.'
+          '⚠️ Unsupported command. Run /cgpthelp to see the usage.'
         );
         break;
     }
