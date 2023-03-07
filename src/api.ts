@@ -3,10 +3,10 @@ import type {
   ChatGPTUnofficialProxyAPI,
   ChatMessage as ChatResponseV4,
 } from 'chatgpt';
-import type {
-  ChatGPTAPIBrowser,
-  ChatResponse as ChatResponseV3,
-} from 'chatgpt-v3';
+//import type {
+//  ChatGPTAPIBrowser,
+//  ChatResponse as ChatResponseV3,
+//} from 'chatgpt-v3';
 import {
   APIBrowserOptions,
   APIOfficialOptions,
@@ -14,6 +14,15 @@ import {
   APIUnofficialOptions,
 } from './types';
 import {logWithTime} from './utils';
+
+class ChatResponseV3 {
+  public response: string = "";
+  public conversationId: string = "";
+  public messageId: string = "";
+}
+class ChatGPTAPIBrowser {
+  sendMessage = async (any: any) => { return new ChatResponseV3(); }
+}
 
 interface ChatContext {
   conversationId?: string;
@@ -41,13 +50,14 @@ class ChatGPT {
   }
 
   init = async () => {
-    if (this._opts.type == 'browser') {
-      const {ChatGPTAPIBrowser} = await import('chatgpt-v3');
-      this._apiBrowser = new ChatGPTAPIBrowser(
-        this._opts.browser as APIBrowserOptions
-      );
-      await this._apiBrowser.initSession();
-      this._api = this._apiBrowser;
+    if (false) {
+    //if (this._opts.type == 'browser') {
+    //  const {ChatGPTAPIBrowser} = await import('chatgpt-v3');
+    //  this._apiBrowser = new ChatGPTAPIBrowser(
+    //    this._opts.browser as APIBrowserOptions
+    //  );
+    //  await this._apiBrowser.initSession();
+    //  this._api = this._apiBrowser;
     } else if (this._opts.type == 'official') {
       const {ChatGPTAPI} = await import('chatgpt');
       this._apiOfficial = new ChatGPTAPI(
@@ -100,16 +110,16 @@ class ChatGPT {
   };
 
   resetThread = async () => {
-    if (this._apiBrowser) {
-      await this._apiBrowser.resetThread();
-    }
+    //if (this._apiBrowser) {
+    //  await this._apiBrowser.resetThread();
+    //}
     this._context = {};
   };
 
   refreshSession = async () => {
-    if (this._apiBrowser) {
-      await this._apiBrowser.refreshSession();
-    }
+    //if (this._apiBrowser) {
+    //  await this._apiBrowser.refreshSession();
+    //}
   };
 }
 

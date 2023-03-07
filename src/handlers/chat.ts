@@ -1,5 +1,5 @@
 import type {ChatMessage as ChatResponseV4} from 'chatgpt';
-import type {ChatResponse as ChatResponseV3} from 'chatgpt-v3';
+//import type {ChatResponse as ChatResponseV3} from 'chatgpt-v3';
 import _ from 'lodash';
 import type TelegramBot from 'node-telegram-bot-api';
 import telegramifyMarkdown from 'telegramify-markdown';
@@ -7,6 +7,10 @@ import type {ChatGPT} from '../api';
 import {BotOptions} from '../types';
 import {logWithTime} from '../utils';
 import Queue from 'promise-queue';
+
+class ChatResponseV3 {
+  public response: string = "";
+}
 
 class ChatHandler {
   debug: number;
