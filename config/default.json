@@ -4,7 +4,7 @@
     "token": "TELEGRAM_BOT_TOKEN",
     "groupIds": [], // allowed group ids, leave empty to allow all
     "userIds": [], // allowed user ids, leave empty to allow all
-    "chatCmd": "/chat"
+    "chatCmd": ["/cgpt", "/chatgpt", "/heysiri", "/hey_siri"]
   },
   "api": {
     "type": "official", // "browser", "official", "unofficial": the type of the chatgpt api to use
