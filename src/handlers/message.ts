@@ -47,6 +47,10 @@ class MessageHandler {
         isMentioned,
         this._botUsername
       );
+    } else if (command == '' && /^\s*\//.test(text)) {
+      // This looks like a command but we haven't seen any command. Let's ignore this.
+      // This sometimes happens when I copy messages in the Telegram web interface.
+      if (this.debug >= 2) logWithTime("ignoring message with a command that our parser hasn't seen");
     } else {
       // Handles:
       // - direct messages in private chats
