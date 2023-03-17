@@ -84,10 +84,10 @@ class CommandHandler {
         break;
 
       default:
-        await this._bot.sendMessage(
-          msg.chat.id,
-          '⚠️ Unsupported command. Run /cgpthelp to see the usage.'
-        );
+        //await this._bot.sendMessage(
+        //  msg.chat.id,
+        //  '⚠️ Unsupported command. Run /cgpthelp to see the usage.'
+        //);
         break;
     }
   };
